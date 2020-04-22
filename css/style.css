@@ -1,0 +1,22 @@
+*, ::after, ::before {
+    box-sizing: unset;
+}
+.drag{
+  width: 100%;
+  height:200px;
+  text-align: center;
+  padding-top: calc(100% - 92%);
+}
+.pointer{
+  cursor: pointer;
+}
+ul{
+  list-style: none;
+}
+.modal-body  ul li > span{
+  font-weight: bold;
+}
+
+.modal-body .imagecode, .modal-body .csscode{
+  overflow-y: scroll;
+}

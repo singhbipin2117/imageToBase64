@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Image To Base64 Converter</title>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <!-- Dropzone minified CSS -->
+  <link rel="stylesheet" href="css/dropzone.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+  <script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+  <script src="js/dropzone.min.js"></script>
+  <script src="js/init.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+          aria-selected="true">Drag & Drop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+          aria-selected="false">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+          aria-selected="false">Contact</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="drag border">Drag and Drop Here</div>
+        <div class="table table-striped" class="files" id="previews">
+        
+          <div id="template" class="file-row container">
+            <div class="row">
+              <!-- This is used as the file preview template -->
+              <div class="col-2">
+                <span class="preview"><img data-dz-thumbnail /></span>
+              </div>
+              <div class="col-2">
+                <p class="name" data-dz-name></p>
+                <strong class="error text-danger" data-dz-errormessage></strong>
+              </div>
+              <div class="col-2">
+                <p class="size" data-dz-size></p>
+              </div>
+              <div class="col-2">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary imagedetail" data-url="" data-name="" data-width="" data-height="" data-size="" data-toggle="modal" data-target="#exampleModal">
+                  Show Code
+                </button>
+              </div>
+              <div class="col-2">
+                <p class="imagecode pointer" data-image="">Copy Image</p>
+              </div>
+              <div class="col-2">
+                <p class="csscode pointer" data-image="">Copy Css</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    </div>
+  </div>
+
+  <!-- Modal box -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Image Info</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+                <div class="col-5">
+                  <img src="" class="image_thumb img-fluid" alt="">
+                </div>
+                <div class="col-5 pl-0">
+                  <ul class="image_info pl-0">
+                    <li><span>Filename : </span><span class="filename"></span></li>
+                    <li><span>Filesize : </span><span class="filesize"></span></li>
+                    <!-- <li><span>Width : </span><span class="width"></span></li>
+                    <li><span>Height : </span><span class="Height"></span></li> -->
+                  </ul>
+
+                </div>
+            </div>
+            <div class="row base64data">
+              <div class="col-12">
+                <b>For use in <img> elements:</b>
+                <button class="selectall">Select All</button>
+                <button class="copytoclipboard">Copy to clipboard </button>
+              </div>
+              <div class="imagecode border p-3 col-10">
+
+              </div>
+              <div class="col-12">
+                <b>For use as CSS background:</b>
+                <button class="selectall">Select All</button>
+                <button class="copytoclipboard">Copy to clipboard </button>
+              </div>
+              <div class="csscode border p-3 col-10">
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -39,8 +39,6 @@ $(document).ready(function(){
     FR.readAsDataURL(file);
 
     modalDetail.dataset.name = file.name;
-    // modalDetail.dataset.width = file.width;
-    // modalDetail.dataset.height = file.height;
     modalDetail.dataset.size = (file.size/1000).toFixed(1)+'KB';
   }
   function addCopyEventLister(imageElement, file, type) {
@@ -77,9 +75,6 @@ $(document).ready(function(){
     enableClipBoardCopy();
   })
 
-  $('.modal-body').on('click', '.selectall', function(){
-    $(this).parent().next().select();
-  })
   var copyToClipboard;
   function enableClipBoardCopy(){
     copyToClipboard = document.querySelector('.base64data');
@@ -100,5 +95,68 @@ $(document).ready(function(){
         console.error('Async: Could not copy text: ', err);
       });
     }
+  }
+
+  $("#bse64form").on('submit', function(e){
+    e.preventDefault();
+    var imageUrl = $("#imageUrl").val();
+    toDataURL(imageUrl, function (dataUrl, response) {
+      console.log('RESULT:', dataUrl, response);
+      var previewHtmlElement = addFileDetails(dataUrl, response);
+      $("#profile #previews").append(previewHtmlElement);
+    })
+
+  });
+
+  function addFileDetails(dataUrl, response) {
+    return '<div id="template" class="file-row container dz-image-preview">'+
+      '<div class="row" >'+
+      '<div class="col-2">'+
+      '<span class="preview"><img src="' + dataUrl+'" data-dz-thumbnail style="width:80px"/></span>'+
+      '</div>'+
+      '<div class="col-2">'+
+      '<p class="size" data-dz-size>' + (response.size / 1000).toFixed(1) + 'KB'+'</p>'+
+      '</div>'+
+      '<div class="col-2">'+
+                '<button type="button" class="btn btn-primary imagedetail" data-url="'+dataUrl+'"'+
+      'data-size="' + (response.size / 1000).toFixed(1) + 'KB'+'" data-toggle="modal" data-target="#exampleModal">'+
+          'Show Code'+
+                '</button>'+
+      '</div>'+
+      '<div class="col-2">'+
+      '<p class="imagecode pointer" data-image="' + dataUrl +'">Copy Image</p>'+
+      '</div>'+
+      '<div class="col-2">'+
+      '<p class="csscode pointer" data-image="url(' + dataUrl +')">Copy Css</p>'+
+      '</div>'+
+            '</div >'+
+          '</div >';
+  }
+
+  function toDataURL(url, callback) {
+    var xhr = createCORSRequest('GET', url) 
+    xhr.onload = function () {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        callback(reader.result, xhr.response);
+      }
+      console.log(xhr.response);
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.responseType = 'blob';
+    xhr.send();
+  }
+
+  function createCORSRequest(method, url) {
+    var xhr = new XMLHttpRequest();
+    if ("withCredentials" in xhr) {
+      xhr.open(method, url, true);
+    } else if (typeof XDomainRequest != "undefined") {
+      xhr = new XDomainRequest();
+      xhr.open(method, url);
+    } else {
+      xhr = null;
+    }
+    return xhr;
   }
 });
